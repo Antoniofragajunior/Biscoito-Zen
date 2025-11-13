@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biscoito Zen - Mensagens Inspiradoras</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✨ Biscoito Zen</h1>
+            <p class="subtitle">Quebre o biscoito e encontre a sua mensagem zen!</p>
+        </header>
+        
+        <!-- Container principal do biscoito e mensagem -->
+        <div class="main-content">
+            <!-- Container do biscoito -->
+            <div class="cookie-container" id="cookieContainer">
+                <div class="fortune-cookie" id="fortuneCookie">
+                    <div class="cookie-whole">
+                        <div class="cookie-pattern"></div>
+                    </div>
+                    <div class="cookie-pieces">
+                        <div class="cookie-piece piece-1"></div>
+                        <div class="cookie-piece piece-2"></div>
+                        <div class="cookie-piece piece-3"></div>
+                        <div class="cookie-piece piece-4"></div>
+                    </div>
+                </div>
+                
+                <!-- Container da mensagem inspiradora (agora dentro do cookie-container) -->
+                <div class="fortune-container" id="fortuneContainer">
+                    <div class="scroll">
+                        <div class="fortune-text" id="fortuneText">
+                            Sua mensagem zen aparecerá aqui...
+                        </div>
+                        <div class="fortune-author" id="fortuneAuthor"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Loading enquanto busca a mensagem -->
+            <div class="loading" id="loading">Buscando sua mensagem zen</div>
+        </div>
+        
+        <!-- Botões de interação -->
+        <div class="buttons-container">
+            <button class="btn" id="breakBtn">Quebrar o biscoito ✨</button>
+            <button class="btn" id="newCookieBtn" style="display: none;">Abrir outro biscoito</button>
+        </div>
+        
+        <p class="instructions">Clique no biscoito ou no botão para quebrá-lo e revelar sua mensagem zen!</p>
+        
+        <!-- Créditos do desenvolvedor -->
+        <div class="credits">
+            Produzido por <span class="developer">Antonio Junior</span> - Desenvolvedor Front-end
+        </div>
+    </div>
+
+    <!-- Script JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

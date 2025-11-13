@@ -1,0 +1,451 @@
+/* Reset e configurações gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos do corpo da página */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    color: #4a4a4a;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+/* Container principal */
+.container {
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Cabeçalho */
+header {
+    margin-bottom: 5px;
+}
+
+h1 {
+    font-family: 'Georgia', serif;
+    color: #6b8e23;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 8px;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+}
+
+.subtitle {
+    color: #556b2f;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+/* Container principal do conteúdo */
+.main-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 380px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+/* Estilo do biscoito */
+.cookie-container {
+    position: relative;
+    width: 280px;
+    height: 140px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.cookie-container:hover {
+    transform: scale(1.05);
+}
+
+.fortune-cookie {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: all 0.5s ease;
+}
+
+/* Biscoito inteiro */
+.cookie-whole {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #f8e8c0, #e6d2a5);
+    border-radius: 50%;
+    box-shadow: 
+        inset 0 0 20px rgba(139, 69, 19, 0.2),
+        0 5px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.cookie-pattern {
+    width: 80%;
+    height: 80%;
+    background: 
+        radial-gradient(circle at 30% 30%, transparent 10px, rgba(139, 69, 19, 0.1) 11px, transparent 12px),
+        radial-gradient(circle at 70% 60%, transparent 8px, rgba(139, 69, 19, 0.1) 9px, transparent 10px);
+    border-radius: 50%;
+}
+
+/* Pedaços do biscoito (invisíveis inicialmente) */
+.cookie-pieces {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.cookie-piece {
+    position: absolute;
+    background: linear-gradient(to bottom, #f8e8c0, #e6d2a5);
+    border-radius: 50%;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.piece-1 {
+    width: 60%;
+    height: 60%;
+    top: 0;
+    left: 0;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.piece-2 {
+    width: 60%;
+    height: 60%;
+    top: 0;
+    right: 0;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+.piece-3 {
+    width: 60%;
+    height: 60%;
+    bottom: 0;
+    left: 0;
+    clip-path: polygon(0 100%, 100% 0, 0 0);
+}
+
+.piece-4 {
+    width: 60%;
+    height: 60%;
+    bottom: 0;
+    right: 0;
+    clip-path: polygon(100% 100%, 0 0, 100% 0);
+}
+
+/* Estados do biscoito */
+.breaking .fortune-cookie {
+    animation: shake 0.5s ease-in-out;
+}
+
+.broken .cookie-whole {
+    opacity: 0;
+}
+
+.broken .cookie-pieces {
+    opacity: 1;
+}
+
+.broken .cookie-piece {
+    animation: fly 1s ease-out forwards;
+}
+
+/* Animação de tremer o biscoito */
+@keyframes shake {
+    0%, 100% { transform: translateX(0) rotate(0); }
+    20%, 60% { transform: translateX(-5px) rotate(-2deg); }
+    40%, 80% { transform: translateX(5px) rotate(2deg); }
+}
+
+/* Animação dos pedaços voando */
+@keyframes fly {
+    0% {
+        transform: translate(0, 0) rotate(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) rotate(var(--r));
+        opacity: 0.7;
+    }
+}
+
+/* Direções para cada pedaço */
+.piece-1 { --tx: -50px; --ty: -30px; --r: -30deg; }
+.piece-2 { --tx: 50px; --ty: -30px; --r: 30deg; }
+.piece-3 { --tx: -30px; --ty: 40px; --r: -20deg; }
+.piece-4 { --tx: 30px; --ty: 40px; --r: 20deg; }
+
+/* Estilo do pergaminho da mensagem (agora posicionado sobre o biscoito) */
+.fortune-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 100%;
+    max-width: 380px;
+    opacity: 0;
+    z-index: 10;
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.fortune-container.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: all;
+}
+
+.scroll {
+    position: relative;
+    background: #f5f0e1;
+    padding: 25px 20px;
+    border-radius: 5px;
+    box-shadow: 
+        inset 0 0 20px rgba(139, 69, 19, 0.2),
+        0 5px 20px rgba(0, 0, 0, 0.3);
+    border: 2px solid #6b8e23;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.scroll:before, .scroll:after {
+    content: '';
+    position: absolute;
+    width: 35px;
+    height: 100%;
+    top: 0;
+    background: #556b2f;
+    z-index: -1;
+    border-radius: 5px;
+}
+
+.scroll:before {
+    left: -18px;
+    transform: skewY(5deg);
+}
+
+.scroll:after {
+    right: -18px;
+    transform: skewY(-5deg);
+}
+
+.fortune-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    line-height: 1.4;
+    color: #4a4a4a;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.fortune-author {
+    font-style: italic;
+    color: #556b2f;
+    margin-top: 8px;
+    font-size: 0.95rem;
+}
+
+/* Container dos botões */
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* Estilo dos botões */
+.btn {
+    background: linear-gradient(to bottom, #6b8e23, #556b2f);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Estilo do loading */
+.loading {
+    display: none;
+    font-size: 1.1rem;
+    color: #556b2f;
+    margin: 12px 0;
+}
+
+.loading.show {
+    display: block;
+}
+
+.loading:after {
+    content: '...';
+    animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% { color: rgba(0,0,0,0); text-shadow: .25em 0 0 rgba(0,0,0,0), .5em 0 0 rgba(0,0,0,0); }
+    40% { color: #556b2f; text-shadow: .25em 0 0 rgba(0,0,0,0), .5em 0 0 rgba(0,0,0,0); }
+    60% { text-shadow: .25em 0 0 #556b2f, .5em 0 0 rgba(0,0,0,0); }
+    80%, 100% { text-shadow: .25em 0 0 #556b2f, .5em 0 0 #556b2f; }
+}
+
+/* Instruções para o usuário */
+.instructions {
+    margin-top: 8px;
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+    color: #556b2f;
+    max-width: 380px;
+    line-height: 1.3;
+}
+
+/* Créditos do desenvolvedor */
+.credits {
+    margin-top: 10px;
+    padding: 12px;
+    font-size: 0.85rem;
+    color: #556b2f;
+    border-top: 1px solid #6b8e23;
+    width: 100%;
+    max-width: 380px;
+}
+
+.developer {
+    font-weight: bold;
+    color: #6b8e23;
+}
+
+/* Estilos responsivos para dispositivos móveis */
+@media (max-width: 600px) {
+    .cookie-container {
+        width: 240px;
+        height: 120px;
+    }
+    
+    .fortune-text {
+        font-size: 1.1rem;
+    }
+    
+    .scroll {
+        padding: 20px 15px;
+        min-height: 140px;
+    }
+    
+    h1 {
+        font-size: 1.6rem;
+    }
+    
+    .subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .main-content {
+        min-height: 340px;
+    }
+}
+
+@media (max-width: 400px) {
+    .cookie-container {
+        width: 200px;
+        height: 100px;
+    }
+    
+    .scroll {
+        padding: 18px 12px;
+        min-height: 130px;
+    }
+    
+    .fortune-text {
+        font-size: 1rem;
+    }
+    
+    .btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .instructions {
+        font-size: 0.8rem;
+        padding: 0 8px;
+    }
+    
+    .credits {
+        font-size: 0.8rem;
+        padding: 10px;
+    }
+    
+    .main-content {
+        min-height: 320px;
+    }
+}
+
+/* Ajustes para telas muito pequenas */
+@media (max-height: 700px) {
+    body {
+        padding: 10px;
+        justify-content: flex-start;
+    }
+    
+    .container {
+        gap: 10px;
+    }
+    
+    .main-content {
+        min-height: 300px;
+    }
+    
+    .cookie-container {
+        margin-bottom: 10px;
+    }
+    
+    .buttons-container {
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+}
